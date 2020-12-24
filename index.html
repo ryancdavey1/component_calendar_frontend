@@ -4,35 +4,41 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <link href="style.css" rel="stylesheet">
   </head>
+  
   <body>
-   <div id="task-container"></div>
-   <div class="form-container">
-     <form id="task-form">
-        <h3>Create a Task:</h3>
-    
-        <input id='input-name' type="text" name="name" value="" placeholder="Task name..." class="input-text">
-        <br><br>
-        <textarea id='input-description' name="description" rows="8" cols="40" value="" placeholder="Task description..."></textarea>
-        <br><br>
-        <input id='input-hours' type="text" name="hours" value="" placeholder="Hours Estimate..." class="input-text">
-        <input type="date" id="start-date" name="start-date" placeholder="Start Date...">
-        <br><br>
-    
-        <p>Choose Initiative:</p>
-        <select id="initiatives" name="initiatives">
-          <option value="1">Organization</option>
-          <option value="2">Coding</option>
-          <option value="3">Work</option>
-          <option value="4">Projects</option>
-        </select>
-        <br><br>
-        
-        <input id= 'create-button' type="submit" name="submit" value="Create New Task" class="submit">
-     </form>
-     <br><br>
+      <div class="form-container">
+          <form id="task-form">
+             <h3>Create a Task:</h3>
+         
+             <input id='input-name' type="text" name="name" value="" placeholder="Task name..." class="input-text">
+             <br><br>
+             <textarea id='input-description' name="description" rows="8" cols="40" value="" placeholder="Task description..."></textarea>
+             <br><br>
+             <input id='input-hours' type="text" name="hours" value="" placeholder="Hours Estimate..." class="input-text">
+             <input type="date" id="start-date" name="start-date" placeholder="Start Date...">
+             <br><br>
+         
+             <p>Choose Initiative:</p>
+             <select id="initiatives" name="initiatives">
+               <option value="1">Organization</option>
+               <option value="2">Coding</option>
+               <option value="3">Work</option>
+               <option value="4">Projects</option>
+             </select>
+             <br><br>
+             
+             <input id= 'create-button' type="submit" name="submit" value="Create New Task" class="submit">
+          </form>
+          <br><br>
+         </div>
+         <div id="task-container"></div>
+      <div class="card">
+          
     </div>
+   
     <script type="text/javascript" src="index.js"></script>
+    <script src="calendar-script.js"></script>
   </body>
 </html>

@@ -1,14 +1,32 @@
 const tasksUrl = "http://localhost:3000/api/v1/tasks";
 
+  const years = [2021];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const months31Days = ["January", "March", "May", "August", "October", "December"]
+  const months30Days = ["April", "June", "July", "September", "November"]
+
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("loaded");
+  // fetch and load tasks
+  renderCalendar();
   getTasks();
 
   const createTaskForm = document.querySelector("#task-form");
   createTaskForm.addEventListener("submit", (e) => {
     createFormHandler(e);
   });
-  //createTaskForm.addEventListener("submit", postTask)
 });
 
 function getTasks() {
@@ -17,11 +35,11 @@ function getTasks() {
     .then(tasks => {
       // remember our JSON data is a bit nested due to our serializer
       tasks.data.forEach(task => {
+        let dayContainer = document.getElementById(task.attributes.start_date)
         const taskMarkup = `
-          <div data-id=${task.id}>
+          <div data-id=${task.id} class="box">
             <h3>${task.attributes.name}</h3>
             <p>${task.attributes.description}</p>
-            <p>${task.attributes.start_date}</p>
             <p>${task.attributes.hours}</p>
             <p>${task.attributes.completed_status}</p>
             <p>${task.attributes.initiative.name}</p>
@@ -29,7 +47,7 @@ function getTasks() {
           </div>
           <br><br>`;
 
-          document.querySelector('#task-container').innerHTML += taskMarkup
+          dayContainer.innerHTML += taskMarkup
       });
     });
 }
@@ -83,11 +101,11 @@ function postFetch(name, description, hours, start_date, initiative_id, initiati
     console.log(task);
     const taskData = task.data
     //render JSON response
+    let dayContainer = document.getElementById(task.start_date);
     const taskMarkup = `
-    <div data-id=${task.id}>
+    <div data-id=${task.id} class="box">
       <h3>${task.name}</h3>
       <p>${task.description}</p>
-      <p>${task.start_date}</p>
       <p>${task.hours}</p>
       <p>${task.completed_status}</p>
       <p>${initiative_name}</p>
@@ -95,6 +113,39 @@ function postFetch(name, description, hours, start_date, initiative_id, initiati
     </div>
     <br><br>`;
 
-    document.querySelector('#task-container').innerHTML += taskMarkup;
+    dayContainer.innerHTML += taskMarkup;
   })
+}
+
+function renderCalendar() {
+  let days = 28;
+  let calendarMarkup = ``;
+  years.forEach(year => {
+    calendarMarkup += `<h1>${year}</h1>`
+    months.forEach((month, index) => {
+      calendarMarkup += `<h2>${month}</h2>`
+      if (months31Days.includes(month)) {
+        days = 31;
+      } else if (months30Days.includes(month)) {
+        days = 30;
+      }
+      for(let i = 1; i <= days; i++) {
+        if (index < 10) {
+          if (i < 10) {
+            calendarMarkup += `<div class="card--content" id="${year}-0${index+1}-0${i}"><h3>${i}</h3></div>`
+          } else {
+            calendarMarkup += `<div class="card--content" id="${year}-0${index+1}-${i}"><h3>${i}</h3></div>`
+          }
+        } else {
+          if (i < 10) {
+            calendarMarkup += `<div class="card--content" id="${year}-${index+1}-0${i}"><h3>${i}</h3></div>`
+          } else {
+            calendarMarkup += `<div class="card--content" id="${year}-${index+1}-${i}"><h3>${i}</h3></div>`
+          }
+        }
+      }
+    })
+  })
+  
+  document.querySelector('.card').innerHTML += calendarMarkup;
 }
