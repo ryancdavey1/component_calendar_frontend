@@ -49,7 +49,8 @@ function getTasks() {
 
           dayContainer.innerHTML += taskMarkup
       });
-    });
+    })
+    .catch(err => console.log(err));
 }
 
 function postTask() {
