@@ -1,4 +1,5 @@
 const tasksUrl = "http://localhost:3000/api/v1/tasks";
+//const Task = require('../task.js');
 
   const years = [2021];
   const months = [
@@ -36,18 +37,9 @@ function getTasks() {
       // remember our JSON data is a bit nested due to our serializer
       tasks.data.forEach(task => {
         let dayContainer = document.getElementById(task.attributes.start_date)
-        const taskMarkup = `
-          <div data-id=${task.id} class="box">
-            <h3>${task.attributes.name}</h3>
-            <p>${task.attributes.description}</p>
-            <p>${task.attributes.hours}</p>
-            <p>${task.attributes.completed_status}</p>
-            <p>${task.attributes.initiative.name}</p>
-            <button data-id=${task.id}>Edit</button>
-          </div>
-          <br><br>`;
-
-          dayContainer.innerHTML += taskMarkup
+        let newTask = new Task(task, task.attributes)
+        
+          dayContainer.innerHTML += newTask.renderTask();
       });
     })
     .catch(err => console.log(err));
@@ -100,19 +92,20 @@ function postFetch(name, description, hours, start_date, initiative_id, initiati
   .then(task => {
     //debugger
     console.log(task);
-    const taskData = task.data
     //render JSON response
-    let dayContainer = document.getElementById(task.start_date);
-    const taskMarkup = `
-    <div data-id=${task.id} class="box">
-      <h3>${task.name}</h3>
-      <p>${task.description}</p>
-      <p>${task.hours}</p>
-      <p>${task.completed_status}</p>
-      <p>${initiative_name}</p>
-      <button data-id=${task.id}>Edit</button>
-    </div>
-    <br><br>`;
+    let dayContainer = document.getElementById(task.data.attributes.start_date);
+    let newTask = new Task(task.id, )
+    // const taskMarkup = `
+    // <div data-id=${task.data.attributes.id} class="box">
+    //   <h3>${task.data.attributes.name}</h3>
+    //   <p>${task.data.attributes.description}</p>
+    //   <p>${task.data.attributes.hours}</p>
+    //   <p>${task.data.attributes.completed_status}</p>
+    //   <p>${task.data.attributes.initiative.name}</p>
+    //   <button data-id=${task.data.id}>Edit</button>
+    // </div>
+    // <br><br>`;
+    const taskMarkup = tas
 
     dayContainer.innerHTML += taskMarkup;
   })
